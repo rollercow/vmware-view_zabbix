@@ -3,6 +3,8 @@
 #################
 #pools you care about
 $pools = ('floating','dedicated','stata','course')
+$zabbix_sender = "C:\zabbix\zabbix_sender.exe"
+$zabbix_config = "C:\zabbix\zabbix_agentd.win.conf"
 
 #load vmware snapin
 . "C:\Program Files\VMware\VMware View\Server\extras\PowerShell\add-snapin.ps1"
@@ -15,7 +17,7 @@ Function Send-Value {#send key value pair to zabbix
         [parameter(mandatory=$true)] $key,
         [parameter(mandatory=$true)] $value
     )
-    $cmd = "C:\zabbix\zabbix_sender.exe -c C:\zabbix\zabbix_agentd.win.conf -k `"$key`" -o `"$value`""
+    $cmd = "$zabbix_sender -c $zabbix_config -k `"$key`" -o `"$value`""
     echo "$cmd"
     Invoke-Expression $cmd
 }
